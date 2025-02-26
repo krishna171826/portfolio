@@ -189,10 +189,10 @@
 
     <!-- contact section -->
 
- <section class="contact" id="contact">
+<section class="contact" id="contact">
     <h2 class="heading">Contact <span>Me</span></h2>
 
-    <form action="https://formsubmit.co/gopikrishna1718@gmail.com" method="post">
+    <form id="contact-form">
         <div class="input-group">
             <div class="input-box">
                 <input type="text" name="name" placeholder="Full Name" required>
@@ -207,10 +207,33 @@
 
         <div class="input-group-2">
             <textarea name="message" id="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
-            <input type="submit" value="Send Message" class="btn">
+            <button type="submit" class="btn">Send Message</button>
         </div>
     </form>
+
+    <p id="response-message"></p> <!-- Message after submission -->
 </section>
+
+<script>
+document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop default form submission
+
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/gopikrishna1718@gmail.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("response-message").innerText = "Message sent successfully!";
+        this.reset(); // Clear form after submission
+    })
+    .catch(error => {
+        document.getElementById("response-message").innerText = "Something went wrong. Try again!";
+    });
+});
+</script>
     <!-- footer section -->
 
 
